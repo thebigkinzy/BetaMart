@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopFeed – Social Shopping</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-store"></i>
+        <span>ShopFeed</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="explore.html">Explore</a>
+        <a href="sell.html">Sell</a>
+        <a href="cart.html" class="cart-link">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>
+      </div>
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html" class="active">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="sell.html">Sell</a>
+      <a href="cart.html">Cart (<span id="cart-count-mobile">0</span>)</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Shop. Share. Discover.</h1>
+    <p>A social marketplace where sellers showcase products and buyers find what they love.</p>
+    <div class="hero-buttons">
+      <a href="explore.html" class="btn btn-white">Explore Products</a>
+      <a href="sell.html" class="btn btn-outline-white">Start Selling</a>
+    </div>
+  </section>
+
+  <!-- Feed -->
+  <main class="container">
+    <div class="feed">
+      <h2 class="section-title"><i class="fas fa-stream"></i> Product Feed</h2>
+
+      <!-- Post 1 -->
+      <article class="feed-card">
+        <div class="feed-header">
+          <img src="https://i.pravatar.cc/40?u=seller1" alt="Seller">
+          <div class="seller-info">
+            <p>TechGadget Pro</p>
+            <p>2 hours ago · Lagos</p>
+          </div>
+          <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+        </div>
+        <a href="product.html?id=1">
+          <img class="feed-image" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80" alt="Wireless Headphones">
+        </a>
+        <div class="feed-body">
+          <div class="feed-actions">
+            <button class="like-btn"><i class="far fa-heart"></i> <span>128</span></button>
+            <button><i class="far fa-comment"></i> <span>24</span></button>
+            <button class="bookmark"><i class="far fa-bookmark"></i></button>
+          </div>
+          <h3><a href="product.html?id=1">Premium Wireless Headphones</a></h3>
+          <p class="desc">Noise-cancelling, 40h battery, crystal clear sound. Perfect for work & travel.</p>
+          <div class="feed-footer">
+            <span class="price">₦45,000</span>
+            <button class="btn btn-primary" onclick="addToCart(1)">
+              <i class="fas fa-cart-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 2 -->
+      <article class="feed-card">
+        <div class="feed-header">
+          <img src="https://i.pravatar.cc/40?u=seller2" alt="Seller">
+          <div class="seller-info">
+            <p>StyleHub Fashion</p>
+            <p>5 hours ago · Abuja</p>
+          </div>
+          <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+        </div>
+        <a href="product.html?id=2">
+          <img class="feed-image" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80" alt="Smart Watch">
+        </a>
+        <div class="feed-body">
+          <div class="feed-actions">
+            <button class="like-btn"><i class="far fa-heart"></i> <span>89</span></button>
+            <button><i class="far fa-comment"></i> <span>15</span></button>
+            <button class="bookmark"><i class="far fa-bookmark"></i></button>
+          </div>
+          <h3><a href="product.html?id=2">Smart Fitness Watch</a></h3>
+          <p class="desc">Track steps, heart rate, sleep. Water resistant. Stylish design.</p>
+          <div class="feed-footer">
+            <span class="price">₦32,500</span>
+            <button class="btn btn-primary" onclick="addToCart(2)">
+              <i class="fas fa-cart-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 3 -->
+      <article class="feed-card">
+        <div class="feed-header">
+          <img src="https://i.pravatar.cc/40?u=seller3" alt="Seller">
+          <div class="seller-info">
+            <p>HomeNest Decor</p>
+            <p>1 day ago · Port Harcourt</p>
+          </div>
+          <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+        </div>
+        <a href="product.html?id=3">
+          <img class="feed-image" src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80" alt="Modern Sofa">
+        </a>
+        <div class="feed-body">
+          <div class="feed-actions">
+            <button class="like-btn"><i class="far fa-heart"></i> <span>210</span></button>
+            <button><i class="far fa-comment"></i> <span>42</span></button>
+            <button class="bookmark"><i class="far fa-bookmark"></i></button>
+          </div>
+          <h3><a href="product.html?id=3">Minimalist Sofa Set</a></h3>
+          <p class="desc">Comfortable 3-seater in soft grey fabric. Free delivery in major cities.</p>
+          <div class="feed-footer">
+            <span class="price">₦185,000</span>
+            <button class="btn btn-primary" onclick="addToCart(3)">
+              <i class="fas fa-cart-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 4 -->
+      <article class="feed-card">
+        <div class="feed-header">
+          <img src="https://i.pravatar.cc/40?u=seller4" alt="Seller">
+          <div class="seller-info">
+            <p>BeautyGlow</p>
+            <p>2 days ago · Ibadan</p>
+          </div>
+          <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+        </div>
+        <a href="product.html?id=4">
+          <img class="feed-image" src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=80" alt="Skincare Set">
+        </a>
+        <div class="feed-body">
+          <div class="feed-actions">
+            <button class="like-btn"><i class="far fa-heart"></i> <span>156</span></button>
+            <button><i class="far fa-comment"></i> <span>31</span></button>
+            <button class="bookmark"><i class="far fa-bookmark"></i></button>
+          </div>
+          <h3><a href="product.html?id=4">Organic Skincare Bundle</a></h3>
+          <p class="desc">Complete 5-piece set. Natural ingredients. Suitable for all skin types.</p>
+          <div class="feed-footer">
+            <span class="price">₦18,900</span>
+            <button class="btn btn-primary" onclick="addToCart(4)">
+              <i class="fas fa-cart-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p class="brand">ShopFeed</p>
+    <p>© 2026 ShopFeed. A social e-commerce marketplace.</p>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+    document.querySelectorAll('.like-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const icon = this.querySelector('i');
+        if (icon.classList.contains('far')) {
+          icon.classList.replace('far', 'fas');
+          this.classList.add('liked');
+        } else {
+          icon.classList.replace('fas', 'far');
+          this.classList.remove('liked');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
