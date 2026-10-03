@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore – ShopFeed</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-store"></i>
+        <span>ShopFeed</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="explore.html" class="active">Explore</a>
+        <a href="sell.html">Sell</a>
+        <a href="cart.html" class="cart-link">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>
+      </div>
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="explore.html" class="active">Explore</a>
+      <a href="sell.html">Sell</a>
+      <a href="cart.html">Cart (<span id="cart-count-mobile">0</span>)</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <h1>Explore Products</h1>
+      <div class="filters">
+        <input type="text" id="search" placeholder="Search products...">
+        <select id="category">
+          <option value="all">All Categories</option>
+          <option value="electronics">Electronics</option>
+          <option value="fashion">Fashion</option>
+          <option value="home">Home & Living</option>
+          <option value="beauty">Beauty</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="product-grid" id="product-grid">
+      <div class="product-card" data-category="electronics" data-name="Premium Wireless Headphones">
+        <a href="product.html?id=1">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="Headphones">
+        </a>
+        <div class="product-card-body">
+          <p class="seller">TechGadget Pro</p>
+          <h3><a href="product.html?id=1">Premium Wireless Headphones</a></h3>
+          <div class="product-card-footer">
+            <span class="price">₦45,000</span>
+            <button class="btn-icon" onclick="addToCart(1)" aria-label="Add to cart">
+              <i class="fas fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="electronics" data-name="Smart Fitness Watch">
+        <a href="product.html?id=2">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80" alt="Watch">
+        </a>
+        <div class="product-card-body">
+          <p class="seller">StyleHub Fashion</p>
+          <h3><a href="product.html?id=2">Smart Fitness Watch</a></h3>
+          <div class="product-card-footer">
+            <span class="price">₦32,500</span>
+            <button class="btn-icon" onclick="addToCart(2)" aria-label="Add to cart">
+              <i class="fas fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="home" data-name="Minimalist Sofa Set">
+        <a href="product.html?id=3">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Sofa">
+        </a>
+        <div class="product-card-body">
+          <p class="seller">HomeNest Decor</p>
+          <h3><a href="product.html?id=3">Minimalist Sofa Set</a></h3>
+          <div class="product-card-footer">
+            <span class="price">₦185,000</span>
+            <button class="btn-icon" onclick="addToCart(3)" aria-label="Add to cart">
+              <i class="fas fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="beauty" data-name="Organic Skincare Bundle">
+        <a href="product.html?id=4">
+          <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80" alt="Skincare">
+        </a>
+        <div class="product-card-body">
+          <p class="seller">BeautyGlow</p>
+          <h3><a href="product.html?id=4">Organic Skincare Bundle</a></h3>
+          <div class="product-card-footer">
+            <span class="price">₦18,900</span>
+            <button class="btn-icon" onclick="addToCart(4)" aria-label="Add to cart">
+              <i class="fas fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="fashion" data-name="Classic Leather Sneakers">
+        <a href="product.html?id=5">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Sneakers">
+        </a>
+        <div class="product-card-body">
+          <p class="seller">UrbanSteps</p>
+          <h3><a href="product.html?id=5">Classic Leather Sneakers</a></h3>
+          <div class="product-card-footer">
+            <span class="price">₦28,000</span>
+            <button class="btn-icon" onclick="addToCart(5)" aria-label="Add to cart">
+              <i class="fas fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="electronics" data-name="Portable Bluetooth Speaker">
+        <a href="product.html?id=6">
+          <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80" alt="Speaker">
+        </a>
+        <div class="product-card-body">
+          <p class="seller">SoundWave</p>
+          <h3><a href="product.html?id=6">Portable Bluetooth Speaker</a></h3>
+          <div class="product-card-footer">
+            <span class="price">₦22,500</span>
+            <button class="btn-icon" onclick="addToCart(6)" aria-label="Add to cart">
+              <i class="fas fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="no-results" id="no-results">No products found matching your search.</p>
+  </main>
+
+  <footer class="footer">
+    <p class="brand">ShopFeed</p>
+    <p>© 2026 ShopFeed. A social e-commerce marketplace.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    const searchInput = document.getElementById('search');
+    const categorySelect = document.getElementById('category');
+    const cards = document.querySelectorAll('.product-card');
+    const noResults = document.getElementById('no-results');
+
+    function filterProducts() {
+      const query = searchInput.value.toLowerCase();
+      const cat = categorySelect.value;
+      let visible = 0;
+      cards.forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        const category = card.dataset.category;
+        const matchSearch = name.includes(query);
+        const matchCat = cat === 'all' || category === cat;
+        if (matchSearch && matchCat) {
+          card.classList.remove('hidden');
+          visible++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      noResults.classList.toggle('show', visible === 0);
+    }
+
+    searchInput.addEventListener('input', filterProducts);
+    categorySelect.addEventListener('change', filterProducts);
+  </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sell on ShopFeed</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-store"></i>
+        <span>ShopFeed</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="explore.html">Explore</a>
+        <a href="sell.html" class="active">Sell</a>
+        <a href="cart.html" class="cart-link">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>
+      </div>
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="sell.html" class="active">Sell</a>
+      <a href="cart.html">Cart (<span id="cart-count-mobile">0</span>)</a>
+    </div>
+  </nav>
+
+  <main class="container-sm">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h1 style="font-size: 1.75rem; margin-bottom: 0.5rem;">Start Selling on ShopFeed</h1>
+      <p style="color: var(--text-light);">List your products and reach thousands of buyers in a social marketplace.</p>
+    </div>
+
+    <div class="benefits">
+      <div class="benefit-card">
+        <i class="fas fa-users"></i>
+        <p>Social Reach</p>
+        <p>Products appear in feeds</p>
+      </div>
+      <div class="benefit-card">
+        <i class="fas fa-bolt"></i>
+        <p>Fast Listing</p>
+        <p>Go live in minutes</p>
+      </div>
+      <div class="benefit-card">
+        <i class="fas fa-shield-alt"></i>
+        <p>Secure</p>
+        <p>Buyer protection</p>
+      </div>
+    </div>
+
+    <div class="sell-form-card" id="form-card">
+      <h2>List a New Product</h2>
+      <form id="sell-form">
+        <div class="form-group">
+          <label>Product Name *</label>
+          <input type="text" required placeholder="e.g. Wireless Earbuds Pro">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Price (₦) *</label>
+            <input type="number" required min="100" placeholder="25000">
+          </div>
+          <div class="form-group">
+            <label>Category *</label>
+            <select required>
+              <option value="">Select category</option>
+              <option value="electronics">Electronics</option>
+              <option value="fashion">Fashion</option>
+              <option value="home">Home & Living</option>
+              <option value="beauty">Beauty</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description *</label>
+          <textarea required rows="4" placeholder="Describe your product, condition, features, shipping info..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Product Images</label>
+          <div class="upload-area" id="upload-area">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Click or drag images here</p>
+            <p class="hint">PNG, JPG up to 5MB each (max 5 images)</p>
+            <input type="file" id="image-input" accept="image/*" multiple hidden>
+          </div>
+          <div class="preview-images" id="preview"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Seller Display Name *</label>
+          <input type="text" required placeholder="Your shop name">
+        </div>
+
+        <div class="form-group">
+          <label>Location *</label>
+          <input type="text" required placeholder="City, State">
+        </div>
+
+        <div class="form-check">
+          <input type="checkbox" id="terms" required>
+          <label for="terms">I agree to the ShopFeed Seller Terms and confirm this product is authentic and legal to sell.</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" style="font-size: 1.05rem;">
+          <i class="fas fa-plus-circle"></i> List Product
+        </button>
+      </form>
+    </div>
+
+    <div class="success-msg" id="success-msg">
+      <i class="fas fa-check-circle"></i>
+      <h3>Product Listed Successfully!</h3>
+      <p>Your product is now live on ShopFeed. Buyers can discover it in the feed and explore page.</p>
+      <a href="explore.html" class="btn btn-primary">View Marketplace</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p class="brand">ShopFeed</p>
+    <p>© 2026 ShopFeed. A social e-commerce marketplace.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    const uploadArea = document.getElementById('upload-area');
+    const imageInput = document.getElementById('image-input');
+    const preview = document.getElementById('preview');
+
+    uploadArea.addEventListener('click', () => imageInput.click());
+
+    imageInput.addEventListener('change', () => {
+      preview.innerHTML = '';
+      Array.from(imageInput.files).slice(0, 5).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    document.getElementById('sell-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('form-card').style.display = 'none';
+      document.getElementById('success-msg').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart – ShopFeed</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-store"></i>
+        <span>ShopFeed</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="explore.html">Explore</a>
+        <a href="sell.html">Sell</a>
+        <a href="cart.html" class="cart-link active">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>
+      </div>
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="sell.html">Sell</a>
+      <a href="cart.html" class="active">Cart (<span id="cart-count-mobile">0</span>)</a>
+    </div>
+  </nav>
+
+  <main class="container-md">
+    <h1 class="section-title" style="margin-bottom: 1.5rem;">Your Cart</h1>
+
+    <div class="cart-empty" id="cart-empty">
+      <i class="fas fa-shopping-cart"></i>
+      <p>Your cart is empty</p>
+      <a href="explore.html" class="btn btn-primary">Start Shopping</a>
+    </div>
+
+    <div class="cart-content" id="cart-content">
+      <div id="cart-items"></div>
+
+      <div class="cart-summary">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="subtotal">₦0</span>
+        </div>
+        <div class="summary-row" style="color: var(--text-light);">
+          <span>Delivery</span>
+          <span>Calculated at checkout</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span class="price" id="total">₦0</span>
+        </div>
+        <button class="btn btn-primary btn-full" style="margin-top: 1.25rem;" id="checkout-btn">
+          Proceed to Checkout
+        </button>
+      </div>
+
+      <div class="checkout-form" id="checkout-form">
+        <h2>Checkout Details</h2>
+        <form id="order-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" required placeholder="Your full name">
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" required placeholder="08012345678">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" required placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label>Delivery Address</label>
+            <textarea required rows="3" placeholder="Street, City, State"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Payment Method</label>
+            <select>
+              <option>Pay on Delivery</option>
+              <option>Bank Transfer</option>
+              <option>Card (Coming soon)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-green btn-full">Place Order</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p class="brand">ShopFeed</p>
+    <p>© 2026 ShopFeed. A social e-commerce marketplace.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    const productData = {
+      1: { name: "Premium Wireless Headphones", price: 45000, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80" },
+      2: { name: "Smart Fitness Watch", price: 32500, image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&q=80" },
+      3: { name: "Minimalist Sofa Set", price: 185000, image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&q=80" },
+      4: { name: "Organic Skincare Bundle", price: 18900, image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=80" },
+      5: { name: "Classic Leather Sneakers", price: 28000, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&q=80" },
+      6: { name: "Portable Bluetooth Speaker", price: 22500, image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=200&q=80" }
+    };
+
+    function renderCart() {
+      const cart = getCart();
+      const emptyEl = document.getElementById('cart-empty');
+      const contentEl = document.getElementById('cart-content');
+      const itemsEl = document.getElementById('cart-items');
+
+      if (Object.keys(cart).length === 0) {
+        emptyEl.classList.add('show');
+        contentEl.classList.remove('show');
+        return;
+      }
+
+      emptyEl.classList.remove('show');
+      contentEl.classList.add('show');
+
+      let html = '';
+      let subtotal = 0;
+
+      for (const [id, qty] of Object.entries(cart)) {
+        const p = productData[id];
+        if (!p) continue;
+        const lineTotal = p.price * qty;
+        subtotal += lineTotal;
+        html += `
+          <div class="cart-item">
+            <img src="${p.image}" alt="${p.name}">
+            <div class="cart-item-info">
+              <h3>${p.name}</h3>
+              <p class="price">₦${p.price.toLocaleString()}</p>
+            </div>
+            <div class="qty-controls">
+              <button onclick="updateQty(${id}, ${qty - 1})">−</button>
+              <span>${qty}</span>
+              <button onclick="updateQty(${id}, ${qty + 1})">+</button>
+            </div>
+            <p class="line-total">₦${lineTotal.toLocaleString()}</p>
+            <button class="remove-btn" onclick="removeFromCart(${id})" aria-label="Remove">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        `;
+      }
+
+      itemsEl.innerHTML = html;
+      document.getElementById('subtotal').textContent = '₦' + subtotal.toLocaleString();
+      document.getElementById('total').textContent = '₦' + subtotal.toLocaleString();
+    }
+
+    function updateQty(id, newQty) {
+      if (newQty < 1) {
+        removeFromCart(id);
+      } else {
+        const cart = getCart();
+        cart[id] = newQty;
+        saveCart(cart);
+        updateCartCount();
+        renderCart();
+      }
+    }
+
+    function removeFromCart(id) {
+      const cart = getCart();
+      delete cart[id];
+      saveCart(cart);
+      updateCartCount();
+      renderCart();
+    }
+
+    document.getElementById('checkout-btn').addEventListener('click', () => {
+      document.getElementById('checkout-form').classList.add('show');
+      document.getElementById('checkout-form').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    document.getElementById('order-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Order placed successfully! 🎉\n\nThank you for shopping on ShopFeed.\nYou will receive a confirmation shortly.');
+      localStorage.removeItem('shopfeed_cart');
+      updateCartCount();
+      renderCart();
+      document.getElementById('checkout-form').classList.remove('show');
+    });
+
+    renderCart();
+  </script>
+</body>
+</html>

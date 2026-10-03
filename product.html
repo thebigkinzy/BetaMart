@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product – ShopFeed</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-store"></i>
+        <span>ShopFeed</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="explore.html">Explore</a>
+        <a href="sell.html">Sell</a>
+        <a href="cart.html" class="cart-link">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>
+      </div>
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="sell.html">Sell</a>
+      <a href="cart.html">Cart (<span id="cart-count-mobile">0</span>)</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <a href="explore.html" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back to Explore
+    </a>
+
+    <div class="product-detail" id="product-detail">
+      <!-- Filled by JS -->
+    </div>
+
+    <div class="extra-grid">
+      <div class="extra-card">
+        <h3>Seller Information</h3>
+        <div class="seller-row">
+          <img id="seller-avatar" src="https://i.pravatar.cc/60?u=seller1" alt="Seller">
+          <div>
+            <p class="name" id="seller-name">TechGadget Pro</p>
+            <p class="meta">Verified Seller · 4.8 ★ (230 reviews)</p>
+            <p class="meta">Lagos, Nigeria</p>
+          </div>
+        </div>
+        <button class="btn btn-outline btn-full">Message Seller</button>
+      </div>
+
+      <div class="extra-card">
+        <h3>Customer Reviews</h3>
+        <div class="review">
+          <span class="author">Adebayo K.</span>
+          <span class="stars">★★★★★</span>
+          <p>Excellent quality! Sound is amazing and battery lasts forever.</p>
+        </div>
+        <div class="review">
+          <span class="author">Chioma O.</span>
+          <span class="stars">★★★★☆</span>
+          <p>Very comfortable. Delivery was fast. Highly recommend.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p class="brand">ShopFeed</p>
+    <p>© 2026 ShopFeed. A social e-commerce marketplace.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    const products = {
+      1: {
+        name: "Premium Wireless Headphones",
+        price: 45000,
+        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80",
+        seller: "TechGadget Pro",
+        avatar: "https://i.pravatar.cc/60?u=seller1",
+        description: "Experience pure audio bliss with these premium wireless headphones. Featuring active noise cancellation, 40-hour battery life, Bluetooth 5.2, and ultra-comfortable memory foam ear cushions. Perfect for work, travel, or daily commuting. Includes carrying case and USB-C charging cable.",
+        features: ["Active Noise Cancellation", "40-hour battery", "Bluetooth 5.2", "Foldable design", "Built-in mic"]
+      },
+      2: {
+        name: "Smart Fitness Watch",
+        price: 32500,
+        image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80",
+        seller: "StyleHub Fashion",
+        avatar: "https://i.pravatar.cc/60?u=seller2",
+        description: "Stay on top of your health with this stylish smart fitness watch. Track steps, heart rate, sleep patterns, and calories. Receive notifications, control music, and enjoy a vibrant AMOLED display. Water resistant up to 50m.",
+        features: ["Heart rate monitor", "Sleep tracking", "50m water resistant", "7-day battery", "AMOLED display"]
+      },
+      3: {
+        name: "Minimalist Sofa Set",
+        price: 185000,
+        image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80",
+        seller: "HomeNest Decor",
+        avatar: "https://i.pravatar.cc/60?u=seller3",
+        description: "Transform your living room with this elegant minimalist sofa set. Soft grey fabric, high-density foam cushions, and solid wood frame. Comfortable 3-seater with matching cushions. Free delivery within Lagos, Abuja, and Port Harcourt.",
+        features: ["3-seater", "High-density foam", "Solid wood frame", "Removable covers", "Free delivery (selected cities)"]
+      },
+      4: {
+        name: "Organic Skincare Bundle",
+        price: 18900,
+        image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=80",
+        seller: "BeautyGlow",
+        avatar: "https://i.pravatar.cc/60?u=seller4",
+        description: "Complete organic skincare routine in one beautiful package. Includes cleanser, toner, serum, moisturizer, and face mask. Made with natural, cruelty-free ingredients. Suitable for all skin types including sensitive skin.",
+        features: ["5-piece set", "100% organic", "Cruelty-free", "All skin types", "Eco-friendly packaging"]
+      },
+      5: {
+        name: "Classic Leather Sneakers",
+        price: 28000,
+        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80",
+        seller: "UrbanSteps",
+        avatar: "https://i.pravatar.cc/60?u=seller5",
+        description: "Timeless leather sneakers that go with everything. Genuine leather upper, cushioned insole, and durable rubber sole. Available in multiple sizes. Perfect for casual and smart-casual looks.",
+        features: ["Genuine leather", "Cushioned insole", "Rubber sole", "Multiple sizes", "Breathable"]
+      },
+      6: {
+        name: "Portable Bluetooth Speaker",
+        price: 22500,
+        image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=800&q=80",
+        seller: "SoundWave",
+        avatar: "https://i.pravatar.cc/60?u=seller6",
+        description: "Powerful portable speaker with rich bass and crystal-clear highs. 12-hour playtime, IPX7 waterproof, and true wireless stereo pairing. Ideal for parties, beach, or outdoor adventures.",
+        features: ["12-hour battery", "IPX7 waterproof", "Rich bass", "TWS pairing", "Built-in mic"]
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id') || '1';
+    const product = products[id] || products[1];
+
+    document.title = product.name + ' – ShopFeed';
+    document.getElementById('seller-name').textContent = product.seller;
+    document.getElementById('seller-avatar').src = product.avatar;
+
+    const featuresHtml = product.features.map(f =>
+      `<li><i class="fas fa-check"></i> ${f}</li>`
+    ).join('');
+
+    document.getElementById('product-detail').innerHTML = `
+      <div class="product-detail-img">
+        <img src="${product.image}" alt="${product.name}">
+      </div>
+      <div class="product-detail-info">
+        <p class="seller">${product.seller}</p>
+        <h1>${product.name}</h1>
+        <p class="price">₦${product.price.toLocaleString()}</p>
+        <p class="desc">${product.description}</p>
+        <ul class="features">${featuresHtml}</ul>
+        <div class="detail-buttons">
+          <button class="btn btn-primary" onclick="addToCart(${id})">
+            <i class="fas fa-cart-plus"></i> Add to Cart
+          </button>
+          <button class="btn btn-outline" onclick="addToCart(${id}); window.location='cart.html'">
+            Buy Now
+          </button>
+        </div>
+      </div>
+    `;
+  </script>
+</body>
+</html>
