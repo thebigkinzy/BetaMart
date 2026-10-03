@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages – ShopFeed</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-store"></i>
+        <span>ShopFeed</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="explore.html">Explore</a>
+        <a href="sell.html">Sell</a>
+        <a href="chat.html" class="active">Messages</a>
+        <a href="cart.html" class="cart-link">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>
+      </div>
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="sell.html">Sell</a>
+      <a href="chat.html" class="active">Messages</a>
+      <a href="cart.html">Cart (<span id="cart-count-mobile">0</span>)</a>
+    </div>
+  </nav>
+
+  <!-- Chat Layout -->
+  <div class="chat-layout">
+    <!-- Sidebar: Conversations -->
+    <aside class="chat-sidebar" id="chat-sidebar">
+      <div class="chat-sidebar-header">
+        <span>Messages</span>
+        <button class="new-chat-btn" title="New conversation" onclick="alert('In a full app this would open a user search.')">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div class="chat-search">
+        <input type="text" id="chat-search" placeholder="Search conversations...">
+      </div>
+      <div class="conversation-list" id="conversation-list">
+        <!-- Filled by JS -->
+      </div>
+    </aside>
+
+    <!-- Main Chat Area -->
+    <section class="chat-main" id="chat-main">
+      <div class="chat-empty" id="chat-empty">
+        <i class="fas fa-comments"></i>
+        <h3>Select a conversation</h3>
+        <p>Choose a buyer or seller from the list to start chatting about products.</p>
+      </div>
+
+      <div id="active-chat" style="display: none; flex-direction: column; height: 100%;">
+        <div class="chat-header" id="chat-header">
+          <!-- Filled by JS -->
+        </div>
+        <div class="chat-messages" id="chat-messages">
+          <!-- Messages filled by JS -->
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off">
+          <button class="send-btn" id="send-btn" aria-label="Send">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Mobile menu
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    // Sample conversations data
+    const conversations = [
+      {
+        id: 1,
+        name: "TechGadget Pro",
+        avatar: "https://i.pravatar.cc/48?u=seller1",
+        role: "Seller",
+        lastMessage: "Yes, the headphones are still available!",
+        time: "10:42 AM",
+        unread: 2,
+        online: true,
+        messages: [
+          { from: "them", text: "Hello! Thanks for your interest in the Premium Wireless Headphones.", time: "10:30 AM" },
+          { from: "me", text: "Hi! Is the battery life really 40 hours?", time: "10:35 AM" },
+          { from: "them", text: "Yes, under normal use. With ANC on it's around 30-32 hours.", time: "10:38 AM" },
+          { from: "me", text: "Great. Do you ship to Ibadan?", time: "10:40 AM" },
+          { from: "them", text: "Yes, the headphones are still available!", time: "10:42 AM" }
+        ]
+      },
+      {
+        id: 2,
+        name: "Adebayo K.",
+        avatar: "https://i.pravatar.cc/48?u=buyer1",
+        role: "Buyer",
+        lastMessage: "Can you reduce the price a bit?",
+        time: "Yesterday",
+        unread: 0,
+        online: false,
+        messages: [
+          { from: "them", text: "Hi, I saw your Smart Fitness Watch listing.", time: "Yesterday 3:15 PM" },
+          { from: "me", text: "Hello! Yes, it's available. How can I help?", time: "Yesterday 3:20 PM" },
+          { from: "them", text: "Can you reduce the price a bit?", time: "Yesterday 3:22 PM" }
+        ]
+      },
+      {
+        id: 3,
+        name: "HomeNest Decor",
+        avatar: "https://i.pravatar.cc/48?u=seller3",
+        role: "Seller",
+        lastMessage: "Free delivery to Lagos this weekend.",
+        time: "Mon",
+        unread: 1,
+        online: true,
+        messages: [
+          { from: "them", text: "Thanks for enquiring about the Minimalist Sofa Set.", time: "Mon 11:00 AM" },
+          { from: "me", text: "What's the delivery cost to Ikeja?", time: "Mon 11:15 AM" },
+          { from: "them", text: "Free delivery to Lagos this weekend.", time: "Mon 11:20 AM" }
+        ]
+      },
+      {
+        id: 4,
+        name: "Chioma O.",
+        avatar: "https://i.pravatar.cc/48?u=buyer2",
+        role: "Buyer",
+        lastMessage: "I just placed the order. Thank you!",
+        time: "Sun",
+        unread: 0,
+        online: false,
+        messages: [
+          { from: "them", text: "Is the Organic Skincare Bundle still in stock?", time: "Sun 2:00 PM" },
+          { from: "me", text: "Yes it is! Would you like me to reserve one for you?", time: "Sun 2:10 PM" },
+          { from: "them", text: "Yes please. I'll checkout now.", time: "Sun 2:12 PM" },
+          { from: "them", text: "I just placed the order. Thank you!", time: "Sun 2:25 PM" }
+        ]
+      },
+      {
+        id: 5,
+        name: "UrbanSteps",
+        avatar: "https://i.pravatar.cc/48?u=seller5",
+        role: "Seller",
+        lastMessage: "Size 43 is available in black.",
+        time: "Sat",
+        unread: 0,
+        online: false,
+        messages: [
+          { from: "me", text: "Do you have the Classic Leather Sneakers in size 43?", time: "Sat 4:00 PM" },
+          { from: "them", text: "Size 43 is available in black.", time: "Sat 4:15 PM" }
+        ]
+      }
+    ];
+
+    let activeId = null;
+
+    // Render conversation list
+    function renderConversations(filter = "") {
+      const list = document.getElementById("conversation-list");
+      const filtered = conversations.filter(c =>
+        c.name.toLowerCase().includes(filter.toLowerCase())
+      );
+
+      list.innerHTML = filtered.map(c => `
+        <div class="conversation-item ${c.id === activeId ? 'active' : ''}" data-id="${c.id}">
+          <img src="${c.avatar}" alt="${c.name}">
+          <div class="conversation-info">
+            <div class="top-row">
+              <span class="name">${c.name}</span>
+              <span class="time">${c.time}</span>
+            </div>
+            <p class="preview">${c.lastMessage}</p>
+          </div>
+          ${c.unread > 0 ? `<span class="unread">${c.unread}</span>` : ""}
+        </div>
+      `).join("");
+
+      // Click handlers
+      list.querySelectorAll(".conversation-item").forEach(item => {
+        item.addEventListener("click", () => openChat(Number(item.dataset.id)));
+      });
+    }
+
+    // Open a chat
+    function openChat(id) {
+      activeId = id;
+      const conv = conversations.find(c => c.id === id);
+      if (!conv) return;
+
+      // Mark as read
+      conv.unread = 0;
+
+      document.getElementById("chat-empty").style.display = "none";
+      const activeChat = document.getElementById("active-chat");
+      activeChat.style.display = "flex";
+
+      // Header
+      document.getElementById("chat-header").innerHTML = `
+        <img src="${conv.avatar}" alt="${conv.name}">
+        <div class="info">
+          <div class="name">${conv.name} <span style="font-weight:400;font-size:0.8rem;color:var(--text-light)">· ${conv.role}</span></div>
+          <div class="status ${conv.online ? '' : 'offline'}">${conv.online ? '● Online' : 'Offline'}</div>
+        </div>
+      `;
+
+      // Messages
+      const messagesEl = document.getElementById("chat-messages");
+      messagesEl.innerHTML = conv.messages.map(m => `
+        <div class="message ${m.from === 'me' ? 'sent' : 'received'}">
+          ${m.text}
+          <div class="meta">${m.time}</div>
+        </div>
+      `).join("");
+
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      renderConversations(document.getElementById("chat-search").value);
+
+      // Mobile: hide sidebar
+      if (window.innerWidth <= 768) {
+        document.getElementById("chat-sidebar").classList.remove("mobile-open");
+      }
+    }
+
+    // Send message
+    function sendMessage() {
+      const input = document.getElementById("message-input");
+      const text = input.value.trim();
+      if (!text || !activeId) return;
+
+      const conv = conversations.find(c => c.id === activeId);
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      conv.messages.push({ from: "me", text, time: timeStr });
+      conv.lastMessage = text;
+      conv.time = "Just now";
+
+      input.value = "";
+      openChat(activeId); // re-render
+    }
+
+    document.getElementById("send-btn").addEventListener("click", sendMessage);
+    document.getElementById("message-input").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    document.getElementById("chat-search").addEventListener("input", (e) => {
+      renderConversations(e.target.value);
+    });
+
+    // Initial render
+    renderConversations();
+
+    // On mobile, show first conversation or keep empty
+    if (window.innerWidth > 768) {
+      // optional: auto-open first chat on desktop
+      // openChat(1);
+    }
+  </script>
+</body>
+</html>
